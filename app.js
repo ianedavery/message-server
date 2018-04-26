@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const {DATABASE_URL, PORT} = require('./config');
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const usersRouter = require('./users/router');
 
 //allow mongoose to use ES6 promises
 mongoose.Promise = global.Promise;
