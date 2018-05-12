@@ -2,15 +2,10 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config();
-const config = require('../config');
-const jwt = require('express-jwt');
 const router = express.Router();
 const {Message} = require('./model');
 
 mongoose.Promise = global.Promise;
-
-jwt({secret: config.JWT_SECRET});
 
 router.get('/', (req, res) => {
 	return Message
