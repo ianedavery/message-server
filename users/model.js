@@ -3,10 +3,13 @@
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
+mongoose.Promise = global.Promise;
+
 const UserSchema = mongoose.Schema({
 	username: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	},
 	password: {
 		type: String,
@@ -16,16 +19,16 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.methods.serialize = function() {
 	return {
-		userID: this._id || '',
+		userId: this._id || '',
 		username: this.username || ''
-	}
-}
+	};
+};
 
-UserSchema.methods.validatePassword = password => {
+UserSchema.methods.validatePassword = function(password) {
 	return bcrypt.compare(password, this.password);
 }
 
-UserSchema.statics.hashPassword = password => {
+UserSchema.statics.hashPassword = function(password) {
 	return bcrypt.hash(password, 10);
 }
 
