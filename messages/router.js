@@ -1,11 +1,8 @@
 'use strict';
 
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router();
 const {Message} = require('./model');
-
-mongoose.Promise = global.Promise;
 
 router.get('/', (req, res) => {
 	return Message
