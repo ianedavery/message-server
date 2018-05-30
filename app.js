@@ -2,12 +2,12 @@
 
 require('dotenv').config();
 const express = require('express');
-const logger = require('morgan');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const morganBody = require('morgan-body');
 
 const {DATABASE_URL, PORT} = require('./config');
-const indexRouter = require('./routes/index');
 const {router: usersRouter} = require('./users');
 const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
 const {router: messageRouter} = require('./messages/router');
@@ -17,7 +17,9 @@ mongoose.Promise = global.Promise;
 
 const app = express();
 
-app.use(logger('dev'));
+morganBody(app);
+
+app.use(morgan('common'));
 app.use(express.json());
 
 app.use(function (req, res, next) {
@@ -80,5 +82,9 @@ const closeServer = () => {
 if(require.main === module) {
 	runServer().catch(err => console.log(err));
 };
+
+app.listen(process.env.PORT || 8080, function(){
+  console.log(`Express server listening on port ${process.env.PORT}`, this.address().port, app.settings.env);
+});
 
 module.exports = {app, runServer, closeServer};

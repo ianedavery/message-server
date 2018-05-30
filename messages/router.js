@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	Message
+	return Message
 		.create({
 			text: req.body.text,
 			author: req.user.username
