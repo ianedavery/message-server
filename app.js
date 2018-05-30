@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const morganBody = require('morgan-body');
+const cors = require('cors');
 
 const {DATABASE_URL, PORT} = require('./config');
 const {router: usersRouter} = require('./users');
@@ -21,6 +22,12 @@ morganBody(app);
 
 app.use(morgan('common'));
 app.use(express.json());
+
+app.use(
+    cors({
+        origin: 'https://serene-shannon-381e7d.netlify.com'
+    })
+);
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
