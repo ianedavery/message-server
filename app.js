@@ -37,9 +37,13 @@ passport.use(jwtStrategy);
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
-app.use('users', usersRouter);
-app.use('auth', authRouter);
-app.use('messages', jwtAuth, messageRouter);
+app.get('/api', (req,res) => {
+  res.json({oh: 'hello'});
+});
+
+app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/messages', jwtAuth, messageRouter);
 app.use('*', (req, res) => {
   return res.status(404).json({message: 'Not Found'});
 });
