@@ -44,7 +44,7 @@ app.use('*', (req, res) => {
   return res.status(404).json({message: 'Not Found'});
 });
 
-let server;
+/*let server;
 
 const runServer = (databaseUrl = DATABASE_URL, port = PORT) => {
 	return new Promise((resolve, reject) => {
@@ -75,16 +75,16 @@ const closeServer = () => {
 				});
 			});
 		});
-}
+}*/
 
 //this is a useful trick for making this file both an executable script, and a module.
 //this will be helpful when we are running tests.
-if(require.main === module) {
+/*if(require.main === module) {
 	runServer().catch(err => console.log(err));
-};
+};*/
 
 app.listen(process.env.PORT || 8080, function(){
   console.log(`Express server listening on port ${process.env.PORT}`, this.address().port, app.settings.env);
 });
 
-module.exports = {app, runServer, closeServer};
+//module.exports = {app, runServer, closeServer};
